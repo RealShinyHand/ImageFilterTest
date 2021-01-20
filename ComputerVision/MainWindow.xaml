@@ -1,0 +1,62 @@
+﻿<Window x:Class="ComputerVision.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm ="clr-namespace:ComputerVision.model"
+        xmlns:local="clr-namespace:ComputerVision"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="810" Width="1500"
+        d:DataContext="{d:DesignInstance vm:MainWindowModel}"
+        xmlns:rs ="clr-namespace:System.Resources;assembly=mscorlib"
+        >
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0" Grid.Row="0">
+            <Image  Name="sourceImage" Source="{Binding SourceBitmapImage}"/>
+        </Border>
+
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Column="1" Grid.Row="0">
+            <Image   Source="{Binding ResultBitmapImage}"/>
+        </Border>
+
+        <WrapPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding SourceUri}" Background="AliceBlue" Margin="10" Height="26" Width="601" FontSize="14" VerticalAlignment="Center"/>
+            <Button x:Name="button" Content="원본 이미지 찾기" Width="123" Height="36" Command="{Binding SoreceLoadButton}"/>
+
+
+            <TabControl Margin="0" Height="79" Width="737">
+                <TabItem Header="Low Pass">
+                    <WrapPanel >
+                        <RadioButton Content="3X3" Width="100" IsChecked="{Binding Mask3x3}" />
+                        <RadioButton Content="5X5" Width="100" IsChecked="{Binding Mask5x5}"/>
+                        <RadioButton Content="7X7" Width="100" IsChecked="{Binding Mask7x7}"/>
+                        <Button Content="Mean Filter" Margin="10" Command="{Binding MeanFilterFunc}"/>
+                        <Button Content="Median Filter" Margin="10" Command="{Binding MedianFilterFunc}"/>
+                        <Button Content="이미지 저장" Margin="10" Command="{Binding SabeButton}"/>
+                    </WrapPanel>
+                </TabItem>
+                <TabItem Header="High Pass">
+                    <WrapPanel>
+                        <Label Content="3x3 라플라시안 필터" />
+                        <Button Content="라플라시안 필터" Margin="10" Command="{Binding LaflasianCommand}"/>
+                        <Button x:Name="button1" Content="enhancement_.라플라시안 타입" Height="28" Width="39" Command="{Binding EnhanceLaflasianCommand}"/>
+                        <Button x:Name="button2" Content="Lafla5X5" Width="75" Command="{Binding BigLaflasianCommand}"/>
+                        <Button Content="이미지 저장" Margin="10" Command="{Binding SabeButton}"/>
+                    </WrapPanel>
+                </TabItem>
+            </TabControl>
+            <Label x:Name="label" Content="컴퓨터 공학과 3학년 손광진(21611741)" Height="27" Width="721" HorizontalAlignment="Center" VerticalAlignment="Top" />
+        </WrapPanel>
+
+    </Grid>
+</Window>
